@@ -3,7 +3,7 @@
     <div class="timeline_item">
       <div class="timeline_item_details">
         <div class="time-line-item_icon_container">
-          <img class="timeline_item_icon" :src="image">
+          <img class="timeline_item_icon" :src="getImageURL(item.topic_data.icon_path)">
         </div>
         <div class="timeline_item_labels">
           <div class="timeline_item_labels_header">{{ formatItemName(item) }}</div>
@@ -37,6 +37,9 @@ export default {
     formatItemName(item) {
       return this.uppercase([item.topic_data.name, item.resource_type.split('_').join(' ')].join(' '));
     },
+    getImageURL(path) {
+      return require('../assets' + path.replace('assets/', ''))
+    },
     uppercase(str) {
       var array1 = str.split(' ');
       var newarray1 = [];
@@ -61,7 +64,7 @@ export default {
   text-align: center;
   align-items: center;
   justify-content: space-between;
-  line-height: 18px;
+  line-height: 20px;
 }
 
 .timeline_item_icon {

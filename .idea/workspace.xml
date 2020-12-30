@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="597df6a3-46fe-4356-aafe-6a7254bbdf3d" name="Default Changelist" comment="Initial commit">
-      <change beforePath="$PROJECT_DIR$/client/src/components/TimeLine.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/TimeLine.vue" afterDir="false" />
+    <list default="true" id="597df6a3-46fe-4356-aafe-6a7254bbdf3d" name="Default Changelist" comment="copied assets into src">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/TimeLineItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/TimeLineItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/activities/v1.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/activities/v1.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,13 +23,16 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1mK994BPfMbE38OiLXluVImVwgS" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -84,7 +85,7 @@
       <option name="presentableId" value="Default" />
       <updated>1609231261111</updated>
       <workItem from="1609231263419" duration="13160000" />
-      <workItem from="1609322732156" duration="6685000" />
+      <workItem from="1609322732156" duration="9076000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1609313875542</created>
@@ -100,7 +101,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609313900554</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="copied assets into src">
+      <created>1609330421778</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1609330421778</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -119,8 +127,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+    <MESSAGE value="copied assets into src" />
+    <option name="LAST_COMMIT_MESSAGE" value="copied assets into src" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
