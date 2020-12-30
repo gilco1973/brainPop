@@ -9,7 +9,7 @@ Vue.config.productionTip = false;
 Vue.filter('formatDate', function(value) {
   if (value) {
     var date  = new Date(value*1000);
-    return date.toString('MM dd');
+    return moment(String(date.toISOString())).format('MMM DD, YYYY . h:mm a')
   }
 });
 new Vue({
