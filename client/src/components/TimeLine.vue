@@ -7,7 +7,7 @@
       v-bind:key="item.id"
       v-bind:item="item">
     </time-line-item>
-    <zoom-modal v-if="showModal"></zoom-modal>
+    <zoom-modal v-if="showModal" v-bind:item="zoomItem" @closeModal="closeModal"></zoom-modal>
   </div>
 </template>
 
@@ -25,7 +25,8 @@ export default {
     return {
       showModal: false,
       activity: {},
-      activities: []
+      activities: [],
+      zoomItem: {}
     };
   },
   created() {
@@ -33,8 +34,12 @@ export default {
   },
   methods: {
     openModal(item) {
-      console.log(item);
+      this.zoomItem = item;
+      console.log(this.zoomItem);
       this.showModal = true;
+    },
+    closeModal(arg) {
+      this.showModal = false;
     },
     async getActivitiesData() {
       activitiesService.getActivitiesV1()

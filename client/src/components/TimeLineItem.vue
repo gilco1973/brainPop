@@ -60,7 +60,7 @@ export default {
   height: 90px;
   width: 95%;
   border-radius: 8px;
-  border: 3px solid #c5c5c5;
+  border: 2px solid #c5c5c5;
   display: flex;
   padding: 25px;
   text-align: center;
@@ -122,7 +122,7 @@ export default {
 }
 
 .vl {
-  border-left: 3px solid #c5c5c5;
+  border-left: 2px solid #c5c5c5;
   height: 26px;
   margin-left: 75px;
 }

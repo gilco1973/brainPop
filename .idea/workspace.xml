@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="597df6a3-46fe-4356-aafe-6a7254bbdf3d" name="Default Changelist" comment="dynamically retrieve images">
-      <change afterPath="$PROJECT_DIR$/client/src/components/ZoomModal.vue" afterDir="false" />
+    <list default="true" id="597df6a3-46fe-4356-aafe-6a7254bbdf3d" name="Default Changelist" comment="modal">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Search.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Search.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/TimeLine.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/TimeLine.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/TimeLineItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/TimeLineItem.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/ZoomModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ZoomModal.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,6 +49,7 @@
     <property name="node.js.selected.package.standard" value="" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2019.3.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="npm.serve">
@@ -91,7 +89,7 @@
       <option name="presentableId" value="Default" />
       <updated>1609231261111</updated>
       <workItem from="1609231263419" duration="13160000" />
-      <workItem from="1609322732156" duration="14674000" />
+      <workItem from="1609322732156" duration="19533000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1609313875542</created>
@@ -121,7 +119,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609340101974</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="modal">
+      <created>1609396722684</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1609396722684</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -144,7 +149,8 @@
     <MESSAGE value="Initial commit" />
     <MESSAGE value="copied assets into src" />
     <MESSAGE value="dynamically retrieve images" />
-    <option name="LAST_COMMIT_MESSAGE" value="dynamically retrieve images" />
+    <MESSAGE value="modal" />
+    <option name="LAST_COMMIT_MESSAGE" value="modal" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
