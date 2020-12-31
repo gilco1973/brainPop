@@ -3,24 +3,27 @@
     <search class="search"></search>
     <time-line-item
       v-for="item in activities"
+      @openModal="openModal"
       v-bind:key="item.id"
       v-bind:item="item">
     </time-line-item>
+    <zoom-modal v-if="showModal"></zoom-modal>
   </div>
 </template>
 
 <script>
-// import './public/style.scss'
 import TimeLineItem from "@/components/TimeLineItem";
+import ZoomModal from "@/components/ZoomModal";
 import Search from "@/components/Search";
 import activitiesService from "@/activitiesService";
 
 export default {
   name: 'TimeLine',
-  components: {Search, TimeLineItem},
+  components: {Search, TimeLineItem, ZoomModal},
 
   data() {
     return {
+      showModal: false,
       activity: {},
       activities: []
     };
@@ -29,6 +32,10 @@ export default {
     this.getActivitiesData();
   },
   methods: {
+    openModal(item) {
+      console.log(item);
+      this.showModal = true;
+    },
     async getActivitiesData() {
       activitiesService.getActivitiesV1()
         .then(

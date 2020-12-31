@@ -15,7 +15,8 @@
           <span style="margin-right: 5px;">Score</span>
           <span><b>{{ item.score }}/{{ item.possible_score }}</b></span>
         </div>
-        <div class="timeline_item_actions_view">
+        <div class="timeline_item_actions_view" v-on:click="openModal()">
+          <font-awesome-icon style="margin-right: 5px;" icon="eye" />
           <span>View work</span>
         </div>
       </div>
@@ -25,15 +26,16 @@
 </template>
 
 <script>
+
 export default {
   name: "TimeLineItem",
   props: ['item'],
-  data () {
-    return {
-      image: require('@/assets/topics/cells.png')
-    }
-  },
   methods: {
+    openModal () {
+      // this.$root.$emit("bv::show::modal", "zoomModal");
+      this.$emit('openModal', this.item)
+    },
+
     formatItemName(item) {
       return this.uppercase([item.topic_data.name, item.resource_type.split('_').join(' ')].join(' '));
     },
@@ -111,6 +113,7 @@ export default {
 .timeline_item_actions_view {
   display: flex;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .timeline_item_actions_score {
