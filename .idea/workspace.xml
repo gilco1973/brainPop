@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="597df6a3-46fe-4356-aafe-6a7254bbdf3d" name="Default Changelist" comment="modal">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="597df6a3-46fe-4356-aafe-6a7254bbdf3d" name="Default Changelist" comment="group by months and sort by date">
+      <change afterPath="$PROJECT_DIR$/client/src/components/ActivityFilter.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/TimeLine.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/TimeLine.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/TimeLineItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/TimeLineItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/ZoomModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ZoomModal.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +139,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609401687353</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="group by months and sort by date">
+      <created>1609488118379</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1609488118379</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -165,7 +170,8 @@
     <MESSAGE value="copied assets into src" />
     <MESSAGE value="dynamically retrieve images" />
     <MESSAGE value="modal" />
-    <option name="LAST_COMMIT_MESSAGE" value="modal" />
+    <MESSAGE value="group by months and sort by date" />
+    <option name="LAST_COMMIT_MESSAGE" value="group by months and sort by date" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

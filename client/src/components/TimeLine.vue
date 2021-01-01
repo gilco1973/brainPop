@@ -1,7 +1,7 @@
 <template>
   <div class="timeline">
     <search class="search"></search>
-    <div v-for="(month) in getActivitiesMonths()" :key="month">
+    <div v-for="(month) in sortedActivitiesMonths" :key="month">
       <div class="month-container-label">
         {{month}}
       </div>
@@ -23,6 +23,18 @@ import ZoomModal from "@/components/ZoomModal";
 import Search from "@/components/Search";
 import activitiesService from "@/activitiesService";
 
+function uppercase(str) {
+  var array1 = str.split(' ');
+  var newarray1 = [];
+
+  for (var x = 0; x < array1.length; x++) {
+    newarray1.push(array1[x].charAt(0).toUpperCase() + array1[x].slice(1));
+  }
+  return newarray1.join(' ');
+}
+function formatItemName(item) {
+  return uppercase([item.topic_data.name, item.resource_type.split('_').join(' ')].join(' '));
+}
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
 
@@ -36,7 +48,9 @@ export default {
       activity: {},
       activities: [],
       zoomItem: {},
-      activitiesByMonth: {}
+      activitiesByMonth: {},
+      filters: [],
+      sortedActivitiesMonths: []
     };
   },
   created() {
@@ -45,51 +59,45 @@ export default {
   methods: {
     openModal(item) {
       this.zoomItem = item;
-      console.log(this.zoomItem);
       this.showModal = true;
     },
     closeModal(arg) {
       this.showModal = false;
     },
-    getActivitiesMonths() {
-      const arr = Object.keys(this.activitiesByMonth).sort(function(a, b){
-        return monthNames.indexOf(a)
-          - monthNames.indexOf(b);
-      });
-      return arr.reverse();
-    },
     getMonthActivitiesItems(month) {
-      return this.activitiesByMonth[month].sort(function(a, b){
-        return new Date(a.d_created*1000) -
-          new Date(b.d_created*1000);
-      }).reverse();
+      return this.activitiesByMonth[month];
     },
     async getActivitiesData() {
       activitiesService.getActivitiesV1()
         .then(
           (activities => {
             this.$set(this, "activities", activities);
-
-
-
-            var map_result = activities.map(function (item) {
-              var d =  new Date(Number(item.d_created) * 1000);
-              var month = monthNames[d.getMonth()];
+            this.filters = activities.map((item) => formatItemName(item));
+            const map_result = activities.map(function (item) {
+              const d = new Date(Number(item.d_created) * 1000);
+              const month = monthNames[d.getMonth()];
               return {
                 "Month": month,
                 "Item": item
               };
             });
 
-            this.activitiesByMonth = map_result.reduce(function (memo, item) {
-              if (memo[item.Month] === undefined) {
-                memo[item.Month] = [item.Item];
+            this.activitiesByMonth = map_result.reduce(function (container, item) {
+              if (container[item.Month] === undefined) {
+                container[item.Month] = [item.Item];
               }else{
-                memo[item.Month].push(item.Item);
+                container[item.Month].push(item.Item);
+                container[item.Month] = container[item.Month].sort(function(a, b){
+                    return new Date(a.d_created*1000) -
+                      new Date(b.d_created*1000);
+                  }).reverse();
               }
-              return memo;
+              return container;
             },{});
-            console.log(this.activitiesByMonth);
+            this.sortedActivitiesMonths = Object.keys(this.activitiesByMonth).sort(function(a, b){
+              return monthNames.indexOf(a)
+                - monthNames.indexOf(b);
+            }).reverse();
           }).bind(this)
         );
     }
