@@ -52,7 +52,7 @@ export default {
 <style scoped>
 .modal {
   width: 1000px;
-  height: 550px;
+  height: 500px;
   border-radius: 30px;
   border: 5px solid gray;
   padding: 10px;

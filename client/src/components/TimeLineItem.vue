@@ -32,7 +32,6 @@ export default {
   props: ['item'],
   methods: {
     openModal () {
-      // this.$root.$emit("bv::show::modal", "zoomModal");
       this.$emit('openModal', this.item)
     },
 
@@ -123,7 +122,7 @@ export default {
 
 .vl {
   border-left: 2px solid #c5c5c5;
-  height: 26px;
-  margin-left: 75px;
+  height: 30px;
+  margin-left: 70px;
 }
 </style>
