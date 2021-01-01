@@ -5,9 +5,9 @@
     <div class="filters-container">
       <activity-filter
         v-for="(filter) in filters"
-        v-bind:key="filter.name"
-        v-bind:selected="filter.selected"
-        v-bind:name="filter.name">
+        v-bind:key="filter.id"
+        @clicked="filterClicked"
+        v-bind:filter="filter">
       </activity-filter>
     </div>
     <div v-for="(month) in sortedActivitiesMonths" :key="month">
@@ -43,7 +43,7 @@ function uppercase(str) {
   return newarray1.join(' ');
 }
 function formatFilter(item) {
-  return { name: uppercase(item.resource_type.split('_').join(' ')), selected: false};
+  return { id:item.id, name: uppercase(item.resource_type.split('_').join(' ')), selected: false};
 }
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
@@ -71,6 +71,11 @@ export default {
       this.zoomItem = item;
       this.showModal = true;
     },
+    filterClicked (id){
+      console.log(id)
+      const filter = this.filters.find((filter) => filter.id === id);
+      filter.selected = !filter.selected;
+    },
     closeModal(arg) {
       this.showModal = false;
     },
@@ -83,7 +88,9 @@ export default {
           (activities => {
             this.$set(this, "activities", activities);
             this.filters = activities.map((item) => formatFilter(item));
-            this.filters = [{name: 'All Work', selected: true}, ... new Set(this.filters)];
+            this.filters = [{id: -1, name: 'All Work', selected: true}, ...this.filters.filter(function(item, pos, arr) {
+              return !pos || item.name !== arr[pos - 1].name;
+            })];
             const map_result = activities.map(function (item) {
               const d = new Date(Number(item.d_created) * 1000);
               const month = monthNames[d.getMonth()];
@@ -169,7 +176,7 @@ a {
   height: 80px;
 }
 .filter-header{
-  padding: 10px;
+  padding: 10px 20px;
   font-size: 18px;
 }
 </style>
