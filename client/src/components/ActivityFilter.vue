@@ -1,31 +1,32 @@
 <template>
-<div class="frame" v-bind:class="{ 'frame-selected': selected }">
-
+<div class="frame" v-bind:class="{ selected: selected }" >
+<span v-if="selected" ><font-awesome-icon style="margin-right: 5px;" icon="check" /></span>
+{{name}}
 </div>
 </template>
 
 <script>
 export default {
 name: "ActivityFilter",
-  data() {
-    return {
-      selected: false
-    }
-  }
+  props: ['name', 'selected'],
 }
 </script>
 
 <style scoped>
 .frame{
+  cursor: pointer;
+  align-items: center;
   color: #017575;
   font-weight: bold;
-  height: 52px;
-  padding: 3px;
-  line-height: 52px;
+  height: 20px;
+  padding: 10px;
+  display: flex;
+  border-radius: 5px;
+  margin: 5px;
   border: 2px solid #017575;
   background-color: #ffffff;
 }
-.frame-selected{
+.selected{
   background-color: #eafcfc;
 }
 </style>

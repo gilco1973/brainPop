@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="597df6a3-46fe-4356-aafe-6a7254bbdf3d" name="Default Changelist" comment="group by months and sort by date">
-      <change afterPath="$PROJECT_DIR$/client/src/components/ActivityFilter.vue" afterDir="false" />
+    <list default="true" id="597df6a3-46fe-4356-aafe-6a7254bbdf3d" name="Default Changelist" comment="fixed warning of state changes of component rendering">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/ActivityFilter.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ActivityFilter.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/TimeLine.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/TimeLine.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +147,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609488118379</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="fixed warning of state changes of component rendering">
+      <created>1609490705676</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1609490705676</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,7 +179,8 @@
     <MESSAGE value="dynamically retrieve images" />
     <MESSAGE value="modal" />
     <MESSAGE value="group by months and sort by date" />
-    <option name="LAST_COMMIT_MESSAGE" value="group by months and sort by date" />
+    <MESSAGE value="fixed warning of state changes of component rendering" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed warning of state changes of component rendering" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

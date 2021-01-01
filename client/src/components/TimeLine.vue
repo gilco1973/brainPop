@@ -1,6 +1,15 @@
 <template>
   <div class="timeline">
     <search class="search"></search>
+    <div class="filter-header">Filter By:</div>
+    <div class="filters-container">
+      <activity-filter
+        v-for="(filter) in filters"
+        v-bind:key="filter.name"
+        v-bind:selected="filter.selected"
+        v-bind:name="filter.name">
+      </activity-filter>
+    </div>
     <div v-for="(month) in sortedActivitiesMonths" :key="month">
       <div class="month-container-label">
         {{month}}
@@ -22,6 +31,7 @@ import TimeLineItem from "@/components/TimeLineItem";
 import ZoomModal from "@/components/ZoomModal";
 import Search from "@/components/Search";
 import activitiesService from "@/activitiesService";
+import ActivityFilter from "@/components/ActivityFilter";
 
 function uppercase(str) {
   var array1 = str.split(' ');
@@ -32,15 +42,15 @@ function uppercase(str) {
   }
   return newarray1.join(' ');
 }
-function formatItemName(item) {
-  return uppercase([item.topic_data.name, item.resource_type.split('_').join(' ')].join(' '));
+function formatFilter(item) {
+  return { name: uppercase(item.resource_type.split('_').join(' ')), selected: false};
 }
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
 
 export default {
   name: 'TimeLine',
-  components: {Search, TimeLineItem, ZoomModal},
+  components: {ActivityFilter, Search, TimeLineItem, ZoomModal},
 
   data() {
     return {
@@ -72,7 +82,8 @@ export default {
         .then(
           (activities => {
             this.$set(this, "activities", activities);
-            this.filters = activities.map((item) => formatItemName(item));
+            this.filters = activities.map((item) => formatFilter(item));
+            this.filters = [{name: 'All Work', selected: true}, ... new Set(this.filters)];
             const map_result = activities.map(function (item) {
               const d = new Date(Number(item.d_created) * 1000);
               const month = monthNames[d.getMonth()];
@@ -109,6 +120,7 @@ export default {
 <style>
 body {
   font-family: sans-serif !important;
+  margin: 15px;
 }
 
 h3 {
@@ -150,5 +162,14 @@ a {
   height: 30px;
   margin-left: 70px;
 }
-
+.filters-container{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 80px;
+}
+.filter-header{
+  padding: 10px;
+  font-size: 18px;
+}
 </style>
