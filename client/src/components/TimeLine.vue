@@ -12,7 +12,7 @@
     </div>
     <div v-for="(month) in sortedActivitiesMonths" :key="month">
       <div class="month-container-label">
-        {{month}}
+        {{ month }}
       </div>
       <div class="vl"></div>
       <time-line-item
@@ -42,9 +42,11 @@ function uppercase(str) {
   }
   return newarray1.join(' ');
 }
+
 function formatFilter(item) {
-  return { id:item.id, name: uppercase(item.resource_type.split('_').join(' ')), selected: false};
+  return {id: item.id, resource_type: item.resource_type, name: uppercase(item.resource_type.split('_').join(' ')), selected: false};
 }
+
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
 
@@ -71,27 +73,16 @@ export default {
       this.zoomItem = item;
       this.showModal = true;
     },
-    filterClicked (id){
-      console.log(id)
-      const allItemsFilter = this.filters.find((filter) => filter.id === -1);
-      if(id === allItemsFilter.id) {
-        this.filters.find((filter) => filter.selected = false);
-        allItemsFilter.selected = true;
-        return;
-      }
-      const filter = this.filters.find((filter) => filter.id === id);
-      filter.selected = !filter.selected;
-
-      const selectedFiltersCount = this.filters.filter((filter) => filter.id !==-1 && filter.selected);
-      console.log(selectedFiltersCount);
-      allItemsFilter.selected = selectedFiltersCount.length === 0;
-      console.log(allItemsFilter.selected);
+    filterClicked(id) {
+      this.setFiltersSelection(id);
     },
     closeModal(arg) {
       this.showModal = false;
     },
     getMonthActivitiesItems(month) {
-      return this.activitiesByMonth[month];
+      const allItemsFilter = this.filters.find((filter) => filter.id === -1);
+      const selectedResources = this.filters.filter((filter) => filter.selected).map((filter) => filter.resource_type);
+      return allItemsFilter.selected ? this.activitiesByMonth[month] : this.activitiesByMonth[month].filter((activity) => selectedResources.includes(activity.resource_type));
     },
     async getActivitiesData() {
       activitiesService.getActivitiesV1()
@@ -99,7 +90,11 @@ export default {
           (activities => {
             this.$set(this, "activities", activities);
             this.filters = activities.map((item) => formatFilter(item));
-            this.filters = [{id: -1, name: 'All Work', selected: true}, ...this.filters.filter(function(item, pos, arr) {
+            this.filters = [{
+              id: -1,
+              name: 'All Work',
+              selected: true
+            }, ...this.filters.filter(function (item, pos, arr) {
               return !pos || item.name !== arr[pos - 1].name;
             })];
             const map_result = activities.map(function (item) {
@@ -114,22 +109,51 @@ export default {
             this.activitiesByMonth = map_result.reduce(function (container, item) {
               if (container[item.Month] === undefined) {
                 container[item.Month] = [item.Item];
-              }else{
+              } else {
                 container[item.Month].push(item.Item);
-                container[item.Month] = container[item.Month].sort(function(a, b){
-                    return new Date(a.d_created*1000) -
-                      new Date(b.d_created*1000);
-                  }).reverse();
+                container[item.Month] = container[item.Month].sort(function (a, b) {
+                  return new Date(a.d_created * 1000) -
+                    new Date(b.d_created * 1000);
+                }).reverse();
               }
               return container;
-            },{});
-            this.sortedActivitiesMonths = Object.keys(this.activitiesByMonth).sort(function(a, b){
+            }, {});
+            this.sortedActivitiesMonths = Object.keys(this.activitiesByMonth).sort(function (a, b) {
               return monthNames.indexOf(a)
                 - monthNames.indexOf(b);
             }).reverse();
           }).bind(this)
         );
     },
+    setFiltersSelection(id) {
+      const allItemsFilter = this.filters.find((filter) => filter.id === -1);
+      if (id === allItemsFilter.id) {
+        this.filters.find((filter) => filter.selected = false);
+        allItemsFilter.selected = true;
+        return;
+      }
+      const filter = this.filters.find((filter) => filter.id === id);
+      filter.selected = !filter.selected;
+
+      const selectedFiltersCount = this.filters.filter((filter) => filter.id !== -1 && filter.selected);
+      allItemsFilter.selected = selectedFiltersCount.length === 0;
+    },
+    filterActivities() {
+      const allItemsFilter = this.filters.find((filter) => filter.id === -1);
+      if(allItemsFilter.selected) {
+        return;
+      }
+      const selectedFilters = this.filters.filter((filter) => filter.selected);
+      Object.keys(this.activitiesByMonth).forEach((month) => {
+        selectedFilters.forEach((filter) => {
+          console.log(month);
+          this.activitiesByMonth[month] = this.activitiesByMonth[month].filter((activity) => {
+            console.log('Activity',activity.id);
+            return activity.resource_type === filter.resource_type;
+          })
+        })
+      });
+    }
   }
 };
 </script>
@@ -175,18 +199,21 @@ a {
   text-align: center;
   line-height: 30px;
 }
+
 .vl {
   border-left: 2px solid #c5c5c5;
   height: 30px;
   margin-left: 70px;
 }
-.filters-container{
+
+.filters-container {
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 80px;
 }
-.filter-header{
+
+.filter-header {
   padding: 10px 20px;
   font-size: 18px;
 }

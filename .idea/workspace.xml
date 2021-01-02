@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="597df6a3-46fe-4356-aafe-6a7254bbdf3d" name="Default Changelist" comment="check/uncheck filters">
+    <list default="true" id="597df6a3-46fe-4356-aafe-6a7254bbdf3d" name="Default Changelist" comment="allitems filter">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/TimeLine.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/TimeLine.vue" afterDir="false" />
     </list>
@@ -166,7 +166,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609495730515</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="allitems filter">
+      <created>1609611002815</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1609611002815</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -195,7 +202,8 @@
     <MESSAGE value="filter items" />
     <MESSAGE value="remove duplicates" />
     <MESSAGE value="check/uncheck filters" />
-    <option name="LAST_COMMIT_MESSAGE" value="check/uncheck filters" />
+    <MESSAGE value="allitems filter" />
+    <option name="LAST_COMMIT_MESSAGE" value="allitems filter" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
