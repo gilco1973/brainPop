@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="597df6a3-46fe-4356-aafe-6a7254bbdf3d" name="Default Changelist" comment="filter items">
+    <list default="true" id="597df6a3-46fe-4356-aafe-6a7254bbdf3d" name="Default Changelist" comment="check/uncheck filters">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/ActivityFilter.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ActivityFilter.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/TimeLine.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/TimeLine.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -160,7 +159,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609493265749</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="check/uncheck filters">
+      <created>1609495730515</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1609495730515</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,7 +193,9 @@
     <MESSAGE value="group by months and sort by date" />
     <MESSAGE value="fixed warning of state changes of component rendering" />
     <MESSAGE value="filter items" />
-    <option name="LAST_COMMIT_MESSAGE" value="filter items" />
+    <MESSAGE value="remove duplicates" />
+    <MESSAGE value="check/uncheck filters" />
+    <option name="LAST_COMMIT_MESSAGE" value="check/uncheck filters" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

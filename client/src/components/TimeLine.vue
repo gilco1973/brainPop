@@ -73,8 +73,19 @@ export default {
     },
     filterClicked (id){
       console.log(id)
+      const allItemsFilter = this.filters.find((filter) => filter.id === -1);
+      if(id === allItemsFilter.id) {
+        this.filters.find((filter) => filter.selected = false);
+        allItemsFilter.selected = true;
+        return;
+      }
       const filter = this.filters.find((filter) => filter.id === id);
       filter.selected = !filter.selected;
+
+      const selectedFiltersCount = this.filters.filter((filter) => filter.id !==-1 && filter.selected);
+      console.log(selectedFiltersCount);
+      allItemsFilter.selected = selectedFiltersCount.length === 0;
+      console.log(allItemsFilter.selected);
     },
     closeModal(arg) {
       this.showModal = false;
@@ -118,7 +129,7 @@ export default {
             }).reverse();
           }).bind(this)
         );
-    }
+    },
   }
 };
 </script>
