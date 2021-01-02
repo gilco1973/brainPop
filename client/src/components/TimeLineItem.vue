@@ -2,8 +2,9 @@
   <div>
     <div class="timeline_item">
       <div class="timeline_item_details">
-        <div class="time-line-item_icon_container">
+        <div class="time-line-item_icon_container" v-bind:class="{ junior: isJunior }">
           <img class="timeline_item_icon" :src="getImageURL(item.topic_data.icon_path)">
+          <div v-if="isJunior" class="junior-text">Jr.</div>
         </div>
         <div class="timeline_item_labels">
           <div class="timeline_item_labels_header">{{ formatItemName(item) }}</div>
@@ -30,6 +31,11 @@
 export default {
   name: "TimeLineItem",
   props: ['item'],
+  data () {
+    return {
+      isJunior: this.item.product === 'bpjr'
+    }
+  },
   methods: {
     openModal () {
       this.$emit('openModal', this.item)
@@ -50,7 +56,7 @@ export default {
       }
       return newarray1.join(' ');
     }
-  }
+  },
 }
 </script>
 
@@ -81,6 +87,22 @@ export default {
   height: 64px;
   display: flex;
   justify-content: center;
+  position: relative;
+}
+.junior{
+  background-color: #f7ae11;
+}
+.junior-text{
+  background-color: #fdc75d;
+  font-size: 9px;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
 
 .timeline_item_labels {
