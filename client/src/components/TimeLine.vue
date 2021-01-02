@@ -11,17 +11,19 @@
       </activity-filter>
     </div>
     <div v-for="(month) in sortedActivitiesMonths" :key="month">
-      <div class="month-container-label">
-        {{ month }}
+      <div v-if="getMonthActivitiesItems(month).length > 0">
+        <div class="month-container-label">
+          {{ month }}
+        </div>
+        <div class="vl"></div>
+        <time-line-item
+          v-for="item in getMonthActivitiesItems(month)"
+          @openModal="openModal"
+          v-bind:key="item.id"
+          v-bind:item="item">
+        </time-line-item>
+        <zoom-modal v-if="showModal" v-bind:item="zoomItem" @closeModal="closeModal"></zoom-modal>
       </div>
-      <div class="vl"></div>
-      <time-line-item
-        v-for="item in getMonthActivitiesItems(month)"
-        @openModal="openModal"
-        v-bind:key="item.id"
-        v-bind:item="item">
-      </time-line-item>
-      <zoom-modal v-if="showModal" v-bind:item="zoomItem" @closeModal="closeModal"></zoom-modal>
     </div>
   </div>
 </template>
@@ -44,7 +46,12 @@ function uppercase(str) {
 }
 
 function formatFilter(item) {
-  return {id: item.id, resource_type: item.resource_type, name: uppercase(item.resource_type.split('_').join(' ')), selected: false};
+  return {
+    id: item.id,
+    resource_type: item.resource_type,
+    name: uppercase(item.resource_type.split('_').join(' ')),
+    selected: false
+  };
 }
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -138,22 +145,6 @@ export default {
       const selectedFiltersCount = this.filters.filter((filter) => filter.id !== -1 && filter.selected);
       allItemsFilter.selected = selectedFiltersCount.length === 0;
     },
-    filterActivities() {
-      const allItemsFilter = this.filters.find((filter) => filter.id === -1);
-      if(allItemsFilter.selected) {
-        return;
-      }
-      const selectedFilters = this.filters.filter((filter) => filter.selected);
-      Object.keys(this.activitiesByMonth).forEach((month) => {
-        selectedFilters.forEach((filter) => {
-          console.log(month);
-          this.activitiesByMonth[month] = this.activitiesByMonth[month].filter((activity) => {
-            console.log('Activity',activity.id);
-            return activity.resource_type === filter.resource_type;
-          })
-        })
-      });
-    }
   }
 };
 </script>
