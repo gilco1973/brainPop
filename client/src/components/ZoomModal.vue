@@ -2,7 +2,7 @@
   <div class="modal" id="zoomModal">
     <font-awesome-icon icon="times" class="closeIcon" v-on:click="closeModal()"/>
     <div class="top-container">
-      <div class="time-line-item_icon_container">
+      <div class="timeline_item_icon_container">
         <img class="timeline_item_icon" :src="getImageURL(item.topic_data.icon_path)">
       </div>
       <div class="timeline_item_labels">
@@ -49,7 +49,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .modal {
   width: 1000px;
   height: 500px;
@@ -66,21 +66,6 @@ export default {
   flex-direction: column;
 }
 
-.timeline_item_icon {
-  width: 48px;
-  height: auto;
-}
-
-.time-line-item_icon_container {
-  background-color: #02c6c5;
-  margin-right: 20px;
-  border-radius: 50%;
-  width: 64px;
-  height: 64px;
-  display: flex;
-  justify-content: center;
-}
-
 .timeline_item_labels {
   display: flex;
   margin-top: 30px;
@@ -88,7 +73,6 @@ export default {
   text-align: left;
   justify-content: center;
 }
-
 .timeline_item_labels_header {
   font-weight: bold;
   font-size: 40px;

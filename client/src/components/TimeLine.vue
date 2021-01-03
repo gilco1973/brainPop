@@ -185,7 +185,7 @@ export default {
         return !pos || item.name !== arr[pos - 1].name;
       })];
       if (this.loadMoreResults) {
-        this.additionalActivities = this.activities.splice(10, this.activities.length - 10);
+        this.additionalActivities = this.activities.splice(this.activities.length - 10, this.activities.length - 10);
       }
       console.log(this.additionalActivities);
       console.log('Activities',this.activities);
@@ -220,94 +220,6 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-body {
-  font-family: sans-serif !important;
-  margin: 15px;
-}
-
-h3 {
-  margin: 40px 0 0;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-
-.timeline {
-  background: #ffffff;
-}
-
-.search {
-  margin: 20px;
-  display: flex;
-}
-
-.month-container-label {
-  background-color: #fcf7e1;
-  border-radius: 30px;
-  height: 30px;
-  width: 140px;
-  text-align: center;
-  line-height: 30px;
-}
-
-.vl {
-  border-left: 2px solid #c5c5c5;
-  height: 30px;
-  margin-left: 70px;
-}
-
-.filters-container {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 80px;
-}
-
-.filter-header {
-  padding: 10px 20px 20px 10px;
-  font-size: 18px;
-}
-
-.version {
-  cursor: pointer;
-  align-items: center;
-  color: #017575;
-  font-weight: bold;
-  height: 20px;
-  padding: 10px 20px;
-  display: flex;
-  border-radius: 5px;
-  margin: 5px;
-  border: 2px solid #017575;
-  background-color: #ffffff;
-}
-
-.version-selected {
-  background-color: #017575;
-  color: #ffffff;
-}
-.load-more-container{
-  display: flex;
-  margin: auto;
-  width: fit-content;
-  color: #017575;
-  height: 50px;
-  cursor: pointer;
-}
-.load-more{
-  font-weight: bold;
-  font-size: 18px;
-}
+<style lang="scss">
+  @import '../style.scss';
 </style>
