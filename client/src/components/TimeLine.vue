@@ -1,6 +1,6 @@
 <template>
   <div class="timeline">
-    <search class="search"></search>
+    <search class="search" @search="searchFilter"></search>
     <div class="filter-header">Filter By:</div>
     <div class="filters-container">
       <activity-filter
@@ -69,13 +69,19 @@ export default {
       zoomItem: {},
       activitiesByMonth: {},
       filters: [],
-      sortedActivitiesMonths: []
+      sortedActivitiesMonths: [],
+      searchTerm: ''
     };
   },
   created() {
     this.getActivitiesData();
   },
   methods: {
+    searchFilter(searchTerm) {
+      this.resetFilters();
+      this.searchTerm = searchTerm;
+
+    },
     openModal(item) {
       this.zoomItem = item;
       this.showModal = true;
@@ -87,6 +93,9 @@ export default {
       this.showModal = false;
     },
     getMonthActivitiesItems(month) {
+      if (this.searchTerm && this.searchTerm.length > 0) {
+        return this.activitiesByMonth[month].filter((activity) => activity.resource_type.includes(this.searchTerm));
+      }
       const allItemsFilter = this.filters.find((filter) => filter.id === -1);
       const selectedResources = this.filters.filter((filter) => filter.selected).map((filter) => filter.resource_type);
       return allItemsFilter.selected ? this.activitiesByMonth[month] : this.activitiesByMonth[month].filter((activity) => selectedResources.includes(activity.resource_type));
@@ -133,6 +142,7 @@ export default {
         );
     },
     setFiltersSelection(id) {
+      this.searchTerm = '';
       const allItemsFilter = this.filters.find((filter) => filter.id === -1);
       if (id === allItemsFilter.id) {
         this.filters.find((filter) => filter.selected = false);
@@ -145,6 +155,11 @@ export default {
       const selectedFiltersCount = this.filters.filter((filter) => filter.id !== -1 && filter.selected);
       allItemsFilter.selected = selectedFiltersCount.length === 0;
     },
+    resetFilters() {
+      this.filters.forEach((filter) => filter.selected = false);
+      const allItemsFilter = this.filters.find((filter) => filter.id === -1);
+      allItemsFilter.selected = true;
+    }
   }
 };
 </script>
@@ -180,6 +195,7 @@ a {
 
 .search {
   margin: 20px;
+  display: flex;
 }
 
 .month-container-label {
@@ -205,7 +221,7 @@ a {
 }
 
 .filter-header {
-  padding: 10px 20px;
+  padding: 10px 20px 20px 10px;
   font-size: 18px;
 }
 </style>
