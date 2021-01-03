@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="timeline_item">
+      <font-awesome-icon icon="times" class="closeIcon" v-on:click="remove"/>
       <div class="timeline_item_details">
         <div class="time-line-item_icon_container" v-bind:class="{ junior: isJunior }">
           <img class="timeline_item_icon" :src="getImageURL(item.topic_data.icon_path)">
@@ -40,7 +41,9 @@ export default {
     openModal () {
       this.$emit('openModal', this.item)
     },
-
+    remove () {
+      this.$emit('remove', '');
+    },
     formatItemName(item) {
       return this.uppercase([item.topic_data.name, item.resource_type.split('_').join(' ')].join(' '));
     },
@@ -72,6 +75,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   line-height: 20px;
+  position: relative;
 }
 
 .timeline_item_icon {
@@ -111,7 +115,17 @@ export default {
   text-align: left;
   justify-content: center;
 }
-
+.closeIcon{
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  cursor: pointer;
+  padding:5px;
+  color: gray;
+  font-weight: bold;
+  width: 15px;
+  height: 15px;
+}
 .timeline_item_labels_header {
   font-weight: bold;
   font-size: 18px;

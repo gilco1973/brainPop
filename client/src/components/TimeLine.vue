@@ -1,5 +1,11 @@
 <template>
   <div class="timeline">
+    <div style="display: flex; flex-flow: row-reverse;">
+      <span class="version" v-on:click="changeAPIVersion(1)"
+            v-bind:class="{ 'version-selected': apiVersion === 1 }">V1</span>
+      <span class="version" v-on:click="changeAPIVersion(2)"
+            v-bind:class="{ 'version-selected': apiVersion === 2 }">V2</span>
+    </div>
     <search class="search" @search="searchFilter"></search>
     <div class="filter-header">Filter By:</div>
     <div class="filters-container">
@@ -19,6 +25,7 @@
         <time-line-item
           v-for="item in getMonthActivitiesItems(month)"
           @openModal="openModal"
+          @remove="addToRemovedItems(item)"
           v-bind:key="item.id"
           v-bind:item="item">
         </time-line-item>
@@ -70,7 +77,9 @@ export default {
       activitiesByMonth: {},
       filters: [],
       sortedActivitiesMonths: [],
-      searchTerm: ''
+      searchTerm: '',
+      removedItems: [],
+      apiVersion: 1
     };
   },
   created() {
@@ -82,6 +91,9 @@ export default {
       this.searchTerm = searchTerm;
 
     },
+    addToRemovedItems(item) {
+      this.removedItems.push(item.id);
+    },
     openModal(item) {
       this.zoomItem = item;
       this.showModal = true;
@@ -92,54 +104,47 @@ export default {
     closeModal(arg) {
       this.showModal = false;
     },
+    changeAPIVersion(newVersion){
+      this.apiVersion = newVersion;
+      this.getActivitiesData();
+    },
     getMonthActivitiesItems(month) {
       if (this.searchTerm && this.searchTerm.length > 0) {
-        return this.activitiesByMonth[month].filter((activity) => activity.resource_type.includes(this.searchTerm));
+        return this.activitiesByMonth[month].filter((activity) => activity.resource_type.includes(this.searchTerm) && !this.removedItems.includes(activity.id));
       }
       const allItemsFilter = this.filters.find((filter) => filter.id === -1);
       const selectedResources = this.filters.filter((filter) => filter.selected).map((filter) => filter.resource_type);
-      return allItemsFilter.selected ? this.activitiesByMonth[month] : this.activitiesByMonth[month].filter((activity) => selectedResources.includes(activity.resource_type));
+      return allItemsFilter.selected ? this.activitiesByMonth[month].filter(activity => !this.removedItems.includes(activity.id)) : this.activitiesByMonth[month].filter((activity) => selectedResources.includes(activity.resource_type) && !this.removedItems.includes(activity.id));
     },
     async getActivitiesData() {
-      activitiesService.getActivitiesV1()
-        .then(
-          (activities => {
-            this.$set(this, "activities", activities);
-            this.filters = activities.map((item) => formatFilter(item));
-            this.filters = [{
-              id: -1,
-              name: 'All Work',
-              selected: true
-            }, ...this.filters.filter(function (item, pos, arr) {
-              return !pos || item.name !== arr[pos - 1].name;
-            })];
-            const map_result = activities.map(function (item) {
-              const d = new Date(Number(item.d_created) * 1000);
-              const month = monthNames[d.getMonth()];
-              return {
-                "Month": month,
-                "Item": item
-              };
-            });
+      if (this.apiVersion === 1) {
+        activitiesService.getActivitiesV1()
+          .then(
+            (activities => {
+              this.$set(this, "activities", activities);
+              this.buildResults();
 
-            this.activitiesByMonth = map_result.reduce(function (container, item) {
-              if (container[item.Month] === undefined) {
-                container[item.Month] = [item.Item];
-              } else {
-                container[item.Month].push(item.Item);
-                container[item.Month] = container[item.Month].sort(function (a, b) {
-                  return new Date(a.d_created * 1000) -
-                    new Date(b.d_created * 1000);
-                }).reverse();
-              }
-              return container;
-            }, {});
-            this.sortedActivitiesMonths = Object.keys(this.activitiesByMonth).sort(function (a, b) {
-              return monthNames.indexOf(a)
-                - monthNames.indexOf(b);
-            }).reverse();
-          }).bind(this)
-        );
+            }).bind(this)
+          );
+      } else {
+        activitiesService.getActivitiesV2()
+          .then(
+            (activities => {
+              let results = [];
+              activities.forEach((activityResult) => {
+                activityResult.activities.forEach((activity) => {
+                  results.push({
+                    ...activity,
+                    resource_type: activityResult.resource_type
+                  })
+                })
+              })
+              this.$set(this, "activities", results);
+              this.buildResults();
+
+            }).bind(this)
+          );
+      }
     },
     setFiltersSelection(id) {
       this.searchTerm = '';
@@ -159,8 +164,43 @@ export default {
       this.filters.forEach((filter) => filter.selected = false);
       const allItemsFilter = this.filters.find((filter) => filter.id === -1);
       allItemsFilter.selected = true;
+    },
+    buildResults() {
+      this.filters = this.activities.map((item) => formatFilter(item));
+      this.filters = [{
+        id: -1,
+        name: 'All Work',
+        selected: true
+      }, ...this.filters.filter(function (item, pos, arr) {
+        return !pos || item.name !== arr[pos - 1].name;
+      })];
+      const map_result = this.activities.map(function (item) {
+        const d = new Date(Number(item.d_created) * 1000);
+        const month = monthNames[d.getMonth()];
+        return {
+          "Month": month,
+          "Item": item
+        };
+      });
+
+      this.activitiesByMonth = map_result.reduce(function (container, item) {
+        if (container[item.Month] === undefined) {
+          container[item.Month] = [item.Item];
+        } else {
+          container[item.Month].push(item.Item);
+          container[item.Month] = container[item.Month].sort(function (a, b) {
+            return new Date(a.d_created * 1000) -
+              new Date(b.d_created * 1000);
+          }).reverse();
+        }
+        return container;
+      }, {});
+      this.sortedActivitiesMonths = Object.keys(this.activitiesByMonth).sort(function (a, b) {
+        return monthNames.indexOf(a)
+          - monthNames.indexOf(b);
+      }).reverse();
     }
-  }
+  },
 };
 </script>
 
@@ -223,5 +263,24 @@ a {
 .filter-header {
   padding: 10px 20px 20px 10px;
   font-size: 18px;
+}
+
+.version {
+  cursor: pointer;
+  align-items: center;
+  color: #017575;
+  font-weight: bold;
+  height: 20px;
+  padding: 10px 20px;
+  display: flex;
+  border-radius: 5px;
+  margin: 5px;
+  border: 2px solid #017575;
+  background-color: #ffffff;
+}
+
+.version-selected {
+  background-color: #017575;
+  color: #ffffff;
 }
 </style>
