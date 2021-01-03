@@ -32,6 +32,10 @@
         <zoom-modal v-if="showModal" v-bind:item="zoomItem" @closeModal="closeModal"></zoom-modal>
       </div>
     </div>
+    <div v-if="loadMoreResults" v-on:click="showMoreResults" class="load-more-container">
+      <font-awesome-icon style="margin-right: 5px;" icon="chevron-down" />
+      <span class="load-more">Load more</span>
+    </div>
   </div>
 </template>
 
@@ -79,7 +83,9 @@ export default {
       sortedActivitiesMonths: [],
       searchTerm: '',
       removedItems: [],
-      apiVersion: 1
+      apiVersion: 1,
+      loadMoreResults: true,
+      additionalActivities: []
     };
   },
   created() {
@@ -90,6 +96,10 @@ export default {
       this.resetFilters();
       this.searchTerm = searchTerm;
 
+    },
+    showMoreResults(){
+      this.loadMoreResults = false;
+      this.getActivitiesData();
     },
     addToRemovedItems(item) {
       this.removedItems.push(item.id);
@@ -174,6 +184,11 @@ export default {
       }, ...this.filters.filter(function (item, pos, arr) {
         return !pos || item.name !== arr[pos - 1].name;
       })];
+      if (this.loadMoreResults) {
+        this.additionalActivities = this.activities.splice(10, this.activities.length - 10);
+      }
+      console.log(this.additionalActivities);
+      console.log('Activities',this.activities);
       const map_result = this.activities.map(function (item) {
         const d = new Date(Number(item.d_created) * 1000);
         const month = monthNames[d.getMonth()];
@@ -282,5 +297,17 @@ a {
 .version-selected {
   background-color: #017575;
   color: #ffffff;
+}
+.load-more-container{
+  display: flex;
+  margin: auto;
+  width: fit-content;
+  color: #017575;
+  height: 50px;
+  cursor: pointer;
+}
+.load-more{
+  font-weight: bold;
+  font-size: 18px;
 }
 </style>

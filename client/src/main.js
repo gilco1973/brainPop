@@ -3,7 +3,7 @@ import App from './App.vue';
 import router from './router';
 import moment from 'moment';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSearch, faEye, faTimesCircle, faTimes, faCheckCircle, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faEye, faTimesCircle, faTimes, faCheckCircle, faCheck, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faSearch);
@@ -12,6 +12,7 @@ library.add(faTimesCircle);
 library.add(faTimes);
 library.add(faCheckCircle);
 library.add(faCheck);
+library.add(faChevronDown);
 
 Vue.config.productionTip = false;
 Vue.component('font-awesome-icon', FontAwesomeIcon);
